@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from src.components.data_transform import DataTransformation
 from src.components.data_transform import DataTransformConfig
+from src.components.model_trainer import ModelTrainer
 
 @dataclass ##helps in directly defining the class rather than going for the constructor.
 class DataIngestionConfig:##any input that is required is given through here.
@@ -62,7 +63,12 @@ if __name__=="__main__":
     train_data,test_data=obj.initiate_data_ingestion()##this data is passed onto the DT for DATA TRANSFORMATION.
 
     data_transformation=DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
+
+    ##passing the test,train from the data transformation-> model trainer.
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
+    
 
 
 
